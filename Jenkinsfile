@@ -1,8 +1,8 @@
 pipeline{
     agent any
     environment {
-        DOCKER_IMAGE = 'yourdockerhubusername/my-node-app:latest'
-        DOCKER_CREDENTIALS_ID = 'dockerhub'
+        DOCKER_IMAGE = 'ramana0410/my-node-app:latest'
+        DOCKER_CREDENTIALS_ID = 'DOCKER_CREDENTIALS_ID'
     }
     stages{
         stage("CheckOut Code")
@@ -10,7 +10,7 @@ pipeline{
             steps
             {
                 echo "Cloning Github repo"
-                git branch: 'main' ,url:''
+                git branch: 'main' ,url:'https://github.com/Ramanakumar05/CI-Project.git'
             }
         }
 
