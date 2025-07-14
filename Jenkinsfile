@@ -38,15 +38,10 @@ pipeline {
         }
 
         // Sonarque
-        stage("SonarQube Analysis") {
+        stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('LocalSonar') {
-                    sh '''
-                        sonar-scanner \
-                        -Dsonar.projectKey=my-node-app \
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=http://localhost:9000
-                    '''
+                    sh 'sonar-scanner -Dsonar.projectKey=my-node-app -Dsonar.sources=. -Dsonar.host.url=http://localhost:9000'
                 }
             }
         }
