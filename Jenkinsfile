@@ -3,7 +3,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'ramana0410/my-node-app'
         DOCKER_CREDENTIALS_ID = 'DOCKER_CREDENTIALS_ID'
-        CONTAINER_NAME = "node-app-container" 
+        CONTAINER_NAME = "node-app-container" // 🔧 Fixed typo
     }
     stages {
         stage("CheckOut Code") {
@@ -37,11 +37,11 @@ pipeline {
             }
         }
 
-        stage("Deploy on EC2") {
+        stage("Deploy") {
             steps {
-                echo "🚀 Deploying container on EC2..."
+                echo "🚀 Deploying Docker container locally..."
                 sh '''
-                    # Pull the latest image
+                    # Pull the latest image from Docker Hub
                     docker pull $DOCKER_IMAGE:latest
 
                     # Stop and remove the old container if it's running
