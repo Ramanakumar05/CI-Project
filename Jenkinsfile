@@ -36,6 +36,20 @@ pipeline {
                 }
             }
         }
+
+        // Sonarque
+        stage("SonarQube Analysis") {
+            steps {
+                withSonarQubeEnv('LocalSonar') {
+                    sh '''
+                        sonar-scanner \
+                        -Dsonar.projectKey=my-node-app \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=http://localhost:9000
+                    '''
+                }
+            }
+        }
         stage("Deploy") {
             steps {
                 echo " Deploying Docker container locally..."
