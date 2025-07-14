@@ -36,7 +36,6 @@ pipeline {
                 }
             }
         }
-
         stage("Deploy") {
             steps {
                 echo "🚀 Deploying Docker container locally..."
