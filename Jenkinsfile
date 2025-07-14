@@ -3,26 +3,26 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'ramana0410/my-node-app'
         DOCKER_CREDENTIALS_ID = 'DOCKER_CREDENTIALS_ID'
-        CONTAINER_NAME = "node-app-container" // 🔧 Fixed typo
+        CONTAINER_NAME = "node-app-container" 
     }
     stages {
         stage("CheckOut Code") {
             steps {
-                echo "📥 Cloning GitHub repo"
+                echo " Cloning GitHub repo"
                 git branch: 'main', url: 'https://github.com/Ramanakumar05/CI-Project.git'
             }
         }
 
         stage("Build Docker Image") {
             steps {
-                echo "🐳 Building the Docker image"
+                echo " Building the Docker image"
                 sh 'docker build -t $DOCKER_IMAGE:latest .'
             }
         }
 
         stage("Push Docker Image to DockerHub") {
             steps {
-                echo "🔐 Logging into DockerHub and pushing image..."
+                echo " Logging into DockerHub and pushing image..."
                 withCredentials([usernamePassword(
                     credentialsId: "${DOCKER_CREDENTIALS_ID}",
                     usernameVariable: 'DOCKER_USER',
@@ -38,7 +38,7 @@ pipeline {
         }
         stage("Deploy") {
             steps {
-                echo "🚀 Deploying Docker container locally..."
+                echo " Deploying Docker container locally..."
                 sh '''
                     # Pull the latest image from Docker Hub
                     docker pull $DOCKER_IMAGE:latest
