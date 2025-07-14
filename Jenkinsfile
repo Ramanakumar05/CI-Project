@@ -1,8 +1,9 @@
 pipeline{
     agent any
     environment {
-        DOCKER_IMAGE = 'ramana0410/my-node-app:latest'
+        DOCKER_IMAGE = 'ramana0410/my-node-app'
         DOCKER_CREDENTIALS_ID = 'DOCKER_CREDENTIALS_ID'
+        CONTAIENR_NAME = "node-app-container"
     }
     stages{
         stage("CheckOut Code")
@@ -18,7 +19,7 @@ pipeline{
         {
             steps{
                 echo "Building the Docker image"
-                sh 'docker build -t $DOCKER_IMAGE .'
+                sh 'docker build -t $DOCKER_IMAGE:latest .'
             }
         }
 
@@ -35,6 +36,24 @@ pipeline{
                         echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
                         docker push $DOCKER_IMAGE
                         docker logout
+                    '''
+                }
+            }
+        }
+        stage("Deploy")
+        {
+            steps{
+                script{
+                    
+                    sh'''
+                        # Pull the latest Image from the Docker hub
+                        docker pull docker push ramana0410/my-node-app:latest
+
+                        # Stop and remove the old container if running
+                        docker rm -f $CONTAIENR_NAME || true
+
+                        # Start a new container
+                        docker run -d --name $CONTAIENR_NAME -p3000:3000 $DOCKER_IMAGE:latest
                     '''
                 }
             }
