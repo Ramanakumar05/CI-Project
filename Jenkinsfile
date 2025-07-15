@@ -51,7 +51,7 @@ pipeline {
                 sh '''
                     # Pull the latest image from Docker Hub
                     docker pull $DOCKER_IMAGE:latest
-
+                    
                     # Stop and remove the old container if it's running
                     docker rm -f $CONTAINER_NAME || true
 

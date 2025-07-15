@@ -4,10 +4,9 @@ const port = 3000;
 
 
 app.get('/', (req, res) => {
-  res.send(' Hello from Dockerized Node.js App with Jenkins This is to showing to !');
+  res.send(' Hello Kumaran 🖕!');
 });
 
 app.listen(port, () => {
   console.log(`✅ Server is running at http://localhost:${port}`);
 });
-
